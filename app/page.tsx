@@ -1,66 +1,31 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+import { useEffect, useState } from 'react';
+import QRCode from 'react-qr-code';
 
 export default function Home() {
+  // Provide a default fallback URL so the QR code ALWAYS renders instantly
+  const [qrUrl, setQrUrl] = useState('http://localhost:3000/ar.html');
+
+  useEffect(() => {
+    // Once the page loads, it updates the QR code with your actual local network IP
+    if (typeof window !== 'undefined') {
+      setQrUrl(`${window.location.origin}/ar.html`);
+    }
+  }, []);
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <main style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh', fontFamily: 'sans-serif' }}>
+      <h1>Welcome to My AR Project</h1>
+      <p style={{ marginBottom: '30px' }}>Scan the QR code below with your phone to view the 3D design!</p>
+      
+      {/* The QR code is no longer conditionally hidden */}
+      <div style={{ background: 'white', padding: '20px', borderRadius: '10px', border: '2px solid #eaeaea' }}>
+        <QRCode value={qrUrl} size={256} />
+      </div>
+      
+      <p style={{ marginTop: '20px', color: '#666', maxWidth: '400px', textAlign: 'center' }}>
+        Note: You will need to point your camera at a "Hiro" marker after scanning this code.
+      </p>
+    </main>
   );
 }
