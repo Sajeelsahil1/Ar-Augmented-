@@ -4,12 +4,12 @@ import QRCode from 'react-qr-code';
 
 export default function Home() {
   // Provide a default fallback URL so the QR code ALWAYS renders instantly
-  const [qrUrl, setQrUrl] = useState('http://localhost:3000/ar.html');
+  const [qrUrl, setQrUrl] = useState('http://localhost:3000/ar.html?v=2');
 
   useEffect(() => {
-    // Once the page loads, it updates the QR code with your actual domain URL
+    // Adding ?v=2 forces the server to bypass the cache and load the newest file
     if (typeof window !== 'undefined') {
-      setQrUrl(`${window.location.origin}/ar.html`);
+      setQrUrl(`${window.location.origin}/ar.html?v=2`);
     }
   }, []);
 
