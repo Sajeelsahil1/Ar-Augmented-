@@ -1,18 +1,17 @@
 // @ts-nocheck
 "use client";
-import Script from 'next/script';
 
 export default function ARViewer() {
   return (
-    <div style={{ height: '100vh', width: '100vw', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#f0f0f0' }}>
+    <div style={{ height: '100vh', width: '100vw', backgroundColor: '#f0f0f0' }}>
       
-      {/* Import Google's Model Viewer component */}
-      <Script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js" />
+      {/* Changed to a standard HTML script tag to force it to load immediately */}
+      <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"></script>
 
       {/* The AR Component */}
       <model-viewer
-        src="/duck/model.gltf" // Points to the GLTF file in your public/duck folder
-        ios-src="/duck/model.usdz" // Optional: Apple devices prefer .usdz files
+        src="/duck/model.gltf"
+        ios-src="/duck/model.usdz"
         alt="A 3D model of a duck"
         ar
         ar-modes="webxr scene-viewer quick-look"
@@ -20,6 +19,14 @@ export default function ARViewer() {
         auto-rotate
         style={{ width: '100%', height: '100%' }}
       >
+        {/* Loading Indicator (This will show up while the heavy 3D file downloads) */}
+        <div 
+          slot="poster" 
+          style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', width: '100%', fontFamily: 'sans-serif', color: '#333' }}
+        >
+          <h3>Loading 3D Model...</h3>
+        </div>
+
         {/* A button to trigger the AR camera */}
         <button 
           slot="ar-button" 
