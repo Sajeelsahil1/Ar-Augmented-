@@ -4,12 +4,12 @@ import QRCode from 'react-qr-code';
 
 export default function Home() {
   // Provide a default fallback URL so the QR code ALWAYS renders instantly
-  const [qrUrl, setQrUrl] = useState('http://localhost:3000/ar');
+  const [qrUrl, setQrUrl] = useState('http://localhost:3000/ar.html');
 
   useEffect(() => {
     // Once the page loads, it updates the QR code with your actual domain URL
     if (typeof window !== 'undefined') {
-      setQrUrl(`${window.location.origin}/ar`);
+      setQrUrl(`${window.location.origin}/ar.html`);
     }
   }, []);
 
@@ -24,7 +24,7 @@ export default function Home() {
       </div>
       
       <p style={{ marginTop: '20px', color: '#666', maxWidth: '400px', textAlign: 'center', lineHeight: '1.5' }}>
-        Note: After scanning, tap the <strong>"View in your space"</strong> button on your phone and slowly move your camera over a flat surface (like a table or floor) to place the 3D model.
+        Note: You will need to point your camera at a printed or digital <strong>"Hiro" marker</strong> after scanning this code to see the 3D model.
       </p>
     </main>
   );
